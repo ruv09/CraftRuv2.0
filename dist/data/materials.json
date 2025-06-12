@@ -1,0 +1,103 @@
+[
+  {
+    "id": "mat_001",
+    "name": "Дуб натуральный",
+    "category": "wood",
+    "description": "Натуральная текстура дуба высокого качества с четко выраженной структурой волокон",
+    "imageUrl": "/images/materials/oak-texture.jpg",
+    "properties": {
+      "roughness": 0.8,
+      "metalness": 0.0,
+      "normalScale": 1.0,
+      "color": "#8B7355"
+    },
+    "tags": ["натуральный", "дерево", "классический", "теплый"],
+    "isActive": true,
+    "createdAt": "2024-01-15T10:30:00Z",
+    "dimensions": {
+      "repeatX": 1.0,
+      "repeatY": 1.0
+    }
+  },
+  {
+    "id": "mat_002",
+    "name": "Мрамор каррарский",
+    "category": "stone",
+    "description": "Белый мрамор с характерными серыми прожилками, премиум качество",
+    "imageUrl": "/images/materials/marble-texture.jpg",
+    "properties": {
+      "roughness": 0.1,
+      "metalness": 0.0,
+      "normalScale": 0.5,
+      "color": "#F8F8FF"
+    },
+    "tags": ["мрамор", "премиум", "белый", "элегантный"],
+    "isActive": true,
+    "createdAt": "2024-01-10T14:20:00Z",
+    "dimensions": {
+      "repeatX": 0.5,
+      "repeatY": 0.5
+    }
+  },
+  {
+    "id": "mat_003",
+    "name": "Сталь матовая",
+    "category": "metal",
+    "description": "Матовая нержавеющая сталь с легкой текстурой",
+    "imageUrl": "/images/placeholders/material-placeholder.webp",
+    "properties": {
+      "roughness": 0.3,
+      "metalness": 1.0,
+      "normalScale": 0.2,
+      "color": "#C0C0C0"
+    },
+    "tags": ["металл", "современный", "прочный", "матовый"],
+    "isActive": true,
+    "createdAt": "2024-01-08T16:45:00Z",
+    "dimensions": {
+      "repeatX": 2.0,
+      "repeatY": 2.0
+    }
+  },
+  {
+    "id": "mat_004",
+    "name": "Ткань велюр",
+    "category": "fabric",
+    "description": "Мягкий велюр темно-синего цвета, подходит для мягкой мебели",
+    "imageUrl": "/images/placeholders/material-placeholder.webp",
+    "properties": {
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "normalScale": 1.5,
+      "color": "#1E3A8A"
+    },
+    "tags": ["ткань", "мягкий", "уютный", "синий"],
+    "isActive": true,
+    "createdAt": "2024-01-05T12:10:00Z",
+    "dimensions": {
+      "repeatX": 3.0,
+      "repeatY": 3.0
+    }
+  },
+  {
+    "id": "mat_005",
+    "name": "Стекло прозрачное",
+    "category": "glass",
+    "description": "Прозрачное стекло высокого качества для столешниц и декоративных элементов",
+    "imageUrl": "/images/placeholders/material-placeholder.webp",
+    "properties": {
+      "roughness": 0.0,
+      "metalness": 0.0,
+      "normalScale": 0.1,
+      "color": "#F0F8FF",
+      "transparency": 0.9
+    },
+    "tags": ["стекло", "прозрачный", "современный", "чистый"],
+    "isActive": true,
+    "createdAt": "2024-01-03T09:30:00Z",
+    "dimensions": {
+      "repeatX": 1.0,
+      "repeatY": 1.0
+    }
+  }
+]

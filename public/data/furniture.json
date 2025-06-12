@@ -1,0 +1,153 @@
+[
+  {
+    "id": "fur_001",
+    "name": "Современный диван",
+    "category": "seating",
+    "description": "Элегантный трехместный диван в современном стиле с высокой спинкой",
+    "imageUrl": "/images/furniture/modern-sofa.jpeg",
+    "modelUrl": "/models/sofa.glb",
+    "dimensions": {
+      "width": 220,
+      "height": 85,
+      "depth": 95
+    },
+    "materials": ["fabric", "wood", "metal"],
+    "tags": ["современный", "диван", "гостиная", "комфорт"],
+    "price": 1299.99,
+    "isActive": true,
+    "createdAt": "2024-01-15T08:20:00Z",
+    "specifications": {
+      "seatingCapacity": 3,
+      "frameaterial": "Массив бука",
+      "upholstery": "Велюр",
+      "colorOptions": ["синий", "серый", "бежевый"],
+      "weight": 45
+    }
+  },
+  {
+    "id": "fur_002",
+    "name": "Обеденный стол круглый",
+    "category": "tables",
+    "description": "Круглый обеденный стол из массива дуба на 6 персон",
+    "imageUrl": "/images/furniture/dining-table.jpg",
+    "modelUrl": "/models/table.glb",
+    "dimensions": {
+      "width": 120,
+      "height": 75,
+      "depth": 120
+    },
+    "materials": ["wood"],
+    "tags": ["стол", "дуб", "обеденная", "круглый"],
+    "price": 899.99,
+    "isActive": true,
+    "createdAt": "2024-01-10T11:15:00Z",
+    "specifications": {
+      "seatingCapacity": 6,
+      "material": "Массив дуба",
+      "finish": "Натуральное масло",
+      "colorOptions": ["натуральный", "темный орех"],
+      "weight": 35
+    }
+  },
+  {
+    "id": "fur_003",
+    "name": "Шкаф-купе модульный",
+    "category": "storage",
+    "description": "Модульный шкаф-купе с зеркальными дверцами и LED подсветкой",
+    "imageUrl": "/images/placeholders/furniture-placeholder.jpg",
+    "modelUrl": "/models/wardrobe.glb",
+    "dimensions": {
+      "width": 200,
+      "height": 240,
+      "depth": 60
+    },
+    "materials": ["wood", "glass", "metal"],
+    "tags": ["шкаф", "модульный", "зеркало", "LED"],
+    "price": 1599.99,
+    "isActive": true,
+    "createdAt": "2024-01-08T14:30:00Z",
+    "specifications": {
+      "doors": 3,
+      "material": "ЛДСП",
+      "finish": "Матовая краска",
+      "features": ["LED подсветка", "Доводчики", "Зеркальные двери"],
+      "weight": 85
+    }
+  },
+  {
+    "id": "fur_004",
+    "name": "Кресло офисное эргономичное",
+    "category": "seating",
+    "description": "Эргономичное офисное кресло с поддержкой поясницы и регулировкой высоты",
+    "imageUrl": "/images/placeholders/furniture-placeholder.jpg",
+    "modelUrl": "/models/office_chair.glb",
+    "dimensions": {
+      "width": 65,
+      "height": 110,
+      "depth": 65
+    },
+    "materials": ["fabric", "metal", "plastic"],
+    "tags": ["кресло", "офис", "эргономика", "регулируемое"],
+    "price": 399.99,
+    "isActive": true,
+    "createdAt": "2024-01-05T16:45:00Z",
+    "specifications": {
+      "maxWeight": 120,
+      "armrests": "Регулируемые",
+      "mechanism": "Синхромеханизм",
+      "features": ["Газлифт", "Поддержка поясницы", "Дышащая ткань"],
+      "weight": 18
+    }
+  },
+  {
+    "id": "fur_005",
+    "name": "Люстра хрустальная",
+    "category": "lighting",
+    "description": "Роскошная хрустальная люстра с LED лампами, 8 рожков",
+    "imageUrl": "/images/placeholders/furniture-placeholder.jpg",
+    "modelUrl": "/models/chandelier.glb",
+    "dimensions": {
+      "width": 80,
+      "height": 60,
+      "depth": 80
+    },
+    "materials": ["glass", "metal"],
+    "tags": ["люстра", "хрусталь", "LED", "роскошь"],
+    "price": 2499.99,
+    "isActive": true,
+    "createdAt": "2024-01-02T10:00:00Z",
+    "specifications": {
+      "bulbs": 8,
+      "bulbType": "LED E14",
+      "power": "40W",
+      "material": "Богемский хрусталь",
+      "features": ["Диммер", "Дистанционное управление"],
+      "weight": 12
+    }
+  },
+  {
+    "id": "fur_006",
+    "name": "Комод прикроватный",
+    "category": "storage",
+    "description": "Компактный прикроватный комод с двумя ящиками и мраморной столешницей",
+    "imageUrl": "/images/placeholders/furniture-placeholder.jpg",
+    "modelUrl": "/models/nightstand.glb",
+    "dimensions": {
+      "width": 50,
+      "height": 55,
+      "depth": 40
+    },
+    "materials": ["wood", "stone"],
+    "tags": ["комод", "прикроватный", "мрамор", "компактный"],
+    "price": 349.99,
+    "isActive": true,
+    "createdAt": "2023-12-28T13:20:00Z",
+    "specifications": {
+      "drawers": 2,
+      "material": "МДФ",
+      "countertop": "Искусственный мрамор",
+      "features": ["Плавное закрывание", "Скрытые ручки"],
+      "weight": 25
+    }
+  }
+]
