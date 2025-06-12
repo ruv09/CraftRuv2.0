@@ -1,0 +1,24 @@
+{
+    "category": "wood",
+    "name": "Дерево",
+    "materials": [
+        {
+            "id": "oak",
+            "name": "Дуб натуральный",
+            "description": "Натуральный дубовый шпон",
+            "category": "wood",
+            "pricePerMeter": 2500,
+            "thickness": 18,
+            "type": "veneer"
+        },
+        {
+            "id": "walnut",
+            "name": "Орех американский",
+            "description": "Шпон ореха американского",
+            "category": "wood",
+            "pricePerMeter": 3200,
+            "thickness": 18,
+            "type": "veneer"
+        }
+    ]
+} 

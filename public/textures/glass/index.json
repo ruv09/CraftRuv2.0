@@ -1,0 +1,26 @@
+{
+    "category": "glass",
+    "name": "Стекло",
+    "materials": [
+        {
+            "id": "glass_clear",
+            "name": "Стекло прозрачное",
+            "texture": "clear.jpg",
+            "normal": "clear_normal.jpg",
+            "roughness": "clear_roughness.jpg",
+            "opacity": 0.1,
+            "price": 2000,
+            "unit": "м²"
+        },
+        {
+            "id": "glass_matte",
+            "name": "Стекло матовое",
+            "texture": "matte.jpg",
+            "normal": "matte_normal.jpg",
+            "roughness": "matte_roughness.jpg",
+            "opacity": 0.5,
+            "price": 2500,
+            "unit": "м²"
+        }
+    ]
+} 
