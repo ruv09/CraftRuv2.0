@@ -1,312 +1,241 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Check, Sparkles, Crown, Building, Zap, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Check, Star, Zap, Crown, Building } from 'lucide-react';
-import { useAuth } from '@/contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { Switch } from '@/components/ui/switch';
+import { SUBSCRIPTION_PLANS } from '@/types/subscription';
+import { useSubscription } from '@/contexts/SubscriptionContext';
 
-interface PricingTier {
-  id: string;
-  name: string;
-  price: number;
-  period: string;
-  description: string;
-  icon: React.ReactNode;
-  features: string[];
-  limitations: string[];
-  recommended?: boolean;
-  popular?: boolean;
-}
+export default function PricingPage() {
+  const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
+  const { subscription, createCheckoutSession, isLoading } = useSubscription();
 
-const PricingPage: React.FC = () => {
-  const { user, updateSubscription } = useAuth();
-  const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState<string | null>(null);
+  const handleSubscribe = async (planId: string) => {
+    if (planId === 'free') return; // Бесплатный план не требует оплаты
 
-  const pricingTiers: PricingTier[] = [
-    {
-      id: 'free',
-      name: 'Free',
-      price: 0,
-      period: '7 дней пробный',
-      description: 'Идеально для знакомства с платформой',
-      icon: <Star className="h-6 w-6" />,
-      features: [
-        'До 3 проектов',
-        'Базовая библиотека материалов',
-        'Основные инструменты дизайна',
-        '1 ГБ облачного хранилища',
-        'Экспорт в стандартном качестве'
-      ],
-      limitations: [
-        'Нет AI помощника',
-        'Ограниченная библиотека мебели',
-        'Базовая поддержка'
-      ]
-    },
-    {
-      id: 'basic',
-      name: 'Basic',
-      price: 9.99,
-      period: 'в месяц',
-      description: 'Для индивидуальных дизайнеров',
-      icon: <Zap className="h-6 w-6" />,
-      features: [
-        'До 10 проектов',
-        'Полная библиотека материалов',
-        'Расширенные инструменты дизайна',
-        '10 ГБ облачного хранилища',
-        'Экспорт в высоком качестве',
-        'Приоритетная поддержка'
-      ],
-      limitations: [
-        'Нет AI помощника',
-        'Ограниченное количество проектов'
-      ]
-    },
-    {
-      id: 'pro',
-      name: 'Pro',
-      price: 19.99,
-      period: 'в месяц',
-      description: 'Для профессиональных дизайнеров',
-      icon: <Crown className="h-6 w-6" />,
-      features: [
-        'Неограниченное количество проектов',
-        'Полная библиотека материалов и мебели',
-        'AI помощник для дизайна',
-        'Продвинутые инструменты освещения',
-        '100 ГБ облачного хранилища',
-        '1000 AI запросов в месяц',
-        'Экспорт в профессиональном качестве',
-        'Приоритетная поддержка',
-        'Совместная работа (до 3 человек)'
-      ],
-      limitations: [],
-      popular: true,
-      recommended: true
-    },
-    {
-      id: 'enterprise',
-      name: 'Enterprise',
-      price: 49.99,
-      period: 'в месяц',
-      description: 'Для команд и студий',
-      icon: <Building className="h-6 w-6" />,
-      features: [
-        'Все функции Pro',
-        'Неограниченное облачное хранилище',
-        'Неограниченные AI запросы',
-        'Командная работа (неограниченно)',
-        'Кастомная библиотека материалов',
-        'API доступ',
-        'Персональный менеджер',
-        'SLA 99.9%',
-        'Кастомные интеграции',
-        'Обучение команды'
-      ],
-      limitations: []
-    }
-  ];
-
-  const handleSelectPlan = async (planId: string) => {
-    if (!user) {
-      navigate('/auth');
-      return;
-    }
-
-    setIsLoading(planId);
-    
     try {
-      // Симуляция API вызова для обновления подписки
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      const selectedPlan = pricingTiers.find(tier => tier.id === planId);
-      if (selectedPlan) {
-        const now = new Date();
-        const endDate = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
-        
-        updateSubscription({
-          plan: planId as any,
-          status: 'active',
-          startDate: now.toISOString(),
-          endDate: endDate.toISOString()
-        });
-        
-        // Перенаправление на страницу успеха или дашборд
-        navigate('/dashboard');
-      }
+      const checkoutUrl = await createCheckoutSession(planId, billingCycle);
+      window.location.href = checkoutUrl;
     } catch (error) {
-      console.error('Ошибка при обновлении подписки:', error);
-    } finally {
-      setIsLoading(null);
+      console.error('Subscription error:', error);
+      // TODO: Показать уведомление об ошибке
     }
   };
 
-  const isCurrentPlan = (planId: string) => {
-    return user?.subscription.plan === planId;
+  const getIconForPlan = (planId: string) => {
+    switch (planId) {
+      case 'free': return <Zap className="h-6 w-6" />;
+      case 'pro': return <Sparkles className="h-6 w-6" />;
+      case 'business': return <Crown className="h-6 w-6" />;
+      case 'enterprise': return <Building className="h-6 w-6" />;
+      default: return <Zap className="h-6 w-6" />;
+    }
+  };
+
+  const getColorClasses = (color: string, isPopular?: boolean) => {
+    const baseClasses = {
+      gray: 'border-gray-200 bg-white',
+      blue: 'border-blue-200 bg-blue-50/50',
+      purple: 'border-purple-200 bg-purple-50/50',
+      gold: 'border-yellow-200 bg-gradient-to-br from-yellow-50 to-orange-50'
+    };
+
+    const popularClasses = {
+      gray: 'border-gray-300 ring-2 ring-gray-200',
+      blue: 'border-blue-300 ring-2 ring-blue-200',
+      purple: 'border-purple-300 ring-2 ring-purple-200',
+      gold: 'border-yellow-300 ring-2 ring-yellow-200'
+    };
+
+    return isPopular ? popularClasses[color as keyof typeof popularClasses] : baseClasses[color as keyof typeof baseClasses];
+  };
+
+  const getCurrentPlanId = () => {
+    return subscription?.planId || 'free';
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50">
-      <div className="container mx-auto px-4 py-16">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Выберите подходящий план
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Создавайте потрясающие интерьеры с помощью нашей платформы. 
-            Начните с бесплатного пробного периода и выберите план, который подходит именно вам.
-          </p>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
+      {/* Hero секция */}
+      <div className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10" />
+        <div className="relative container mx-auto px-4 py-16 text-center">
+          <div className="max-w-3xl mx-auto">
+            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
+              Выберите свой план
+            </h1>
+            <p className="text-xl text-muted-foreground mb-8">
+              Создавайте потрясающие дизайны интерьеров с помощью AI. 
+              Начните бесплатно или выберите план для профессиональной работы.
+            </p>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
-          {pricingTiers.map((tier) => (
-            <Card 
-              key={tier.id} 
-              className={`relative overflow-hidden transition-all duration-300 hover:shadow-xl ${
-                tier.popular ? 'ring-2 ring-purple-500 shadow-lg scale-105' : 'hover:scale-105'
-              }`}
-            >
-              {tier.popular && (
-                <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-purple-500 to-blue-500 text-white text-center py-2 text-sm font-semibold">
-                  Самый популярный
-                </div>
+            {/* Переключатель тарификации */}
+            <div className="flex items-center justify-center gap-4 mb-12">
+              <span className={`text-sm font-medium ${billingCycle === 'monthly' ? 'text-foreground' : 'text-muted-foreground'}`}>
+                Ежемесячно
+              </span>
+              <Switch
+                checked={billingCycle === 'yearly'}
+                onCheckedChange={(checked) => setBillingCycle(checked ? 'yearly' : 'monthly')}
+              />
+              <span className={`text-sm font-medium ${billingCycle === 'yearly' ? 'text-foreground' : 'text-muted-foreground'}`}>
+                Ежегодно
+              </span>
+              {billingCycle === 'yearly' && (
+                <Badge variant="secondary" className="bg-green-100 text-green-800">
+                  Скидка 2 месяца
+                </Badge>
               )}
-              
-              <CardHeader className={`text-center ${tier.popular ? 'pt-12' : 'pt-6'}`}>
-                <div className="flex justify-center mb-4">
-                  <div className={`p-3 rounded-full ${
-                    tier.id === 'free' ? 'bg-gray-100 text-gray-600' :
-                    tier.id === 'basic' ? 'bg-blue-100 text-blue-600' :
-                    tier.id === 'pro' ? 'bg-purple-100 text-purple-600' :
-                    'bg-yellow-100 text-yellow-600'
-                  }`}>
-                    {tier.icon}
-                  </div>
-                </div>
-                
-                <CardTitle className="text-2xl font-bold">{tier.name}</CardTitle>
-                <CardDescription className="text-sm text-gray-600 mt-2">
-                  {tier.description}
-                </CardDescription>
-                
-                <div className="mt-4">
-                  <span className="text-4xl font-bold text-gray-900">
-                    ${tier.price}
-                  </span>
-                  <span className="text-gray-600 ml-1">/{tier.period}</span>
-                </div>
-
-                {tier.recommended && (
-                  <Badge className="mt-2 bg-green-100 text-green-800 hover:bg-green-100">
-                    Рекомендуется
-                  </Badge>
-                )}
-              </CardHeader>
-
-              <CardContent className="p-6">
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-semibold text-green-700 mb-2">Включено:</h4>
-                    <ul className="space-y-2">
-                      {tier.features.map((feature, index) => (
-                        <li key={index} className="flex items-start">
-                          <Check className="h-4 w-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                          <span className="text-sm text-gray-700">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {tier.limitations.length > 0 && (
-                    <div>
-                      <h4 className="font-semibold text-gray-500 mb-2">Ограничения:</h4>
-                      <ul className="space-y-1">
-                        {tier.limitations.map((limitation, index) => (
-                          <li key={index} className="text-sm text-gray-500">
-                            • {limitation}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-
-                <Button
-                  className={`w-full mt-6 ${
-                    tier.popular 
-                      ? 'bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white'
-                      : tier.id === 'enterprise'
-                      ? 'bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white'
-                      : ''
-                  }`}
-                  variant={isCurrentPlan(tier.id) ? 'outline' : 'default'}
-                  disabled={isCurrentPlan(tier.id) || isLoading === tier.id}
-                  onClick={() => handleSelectPlan(tier.id)}
-                >
-                  {isLoading === tier.id ? (
-                    'Обработка...'
-                  ) : isCurrentPlan(tier.id) ? (
-                    'Текущий план'
-                  ) : tier.id === 'free' ? (
-                    'Начать пробный период'
-                  ) : (
-                    `Выбрать ${tier.name}`
-                  )}
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        <div className="mt-16 text-center">
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">
-            Часто задаваемые вопросы
-          </h3>
-          <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
-            <div className="text-left">
-              <h4 className="font-semibold text-gray-900 mb-2">
-                Можно ли изменить план в любое время?
-              </h4>
-              <p className="text-gray-600">
-                Да, вы можете повысить или понизить свой план в любое время. 
-                Изменения вступают в силу немедленно.
-              </p>
-            </div>
-            <div className="text-left">
-              <h4 className="font-semibold text-gray-900 mb-2">
-                Что происходит после окончания пробного периода?
-              </h4>
-              <p className="text-gray-600">
-                После 7-дневного пробного периода вам нужно будет выбрать платный план 
-                или ваш аккаунт перейдет в режим только для просмотра.
-              </p>
-            </div>
-            <div className="text-left">
-              <h4 className="font-semibold text-gray-900 mb-2">
-                Есть ли возврат средств?
-              </h4>
-              <p className="text-gray-600">
-                Мы предлагаем 30-дневную гарантию возврата средств для всех планов. 
-                Никаких вопросов не задаем.
-              </p>
-            </div>
-            <div className="text-left">
-              <h4 className="font-semibold text-gray-900 mb-2">
-                Нужна помощь в выборе плана?
-              </h4>
-              <p className="text-gray-600">
-                Свяжитесь с нашей командой поддержки, и мы поможем вам выбрать 
-                идеальный план для ваших потребностей.
-              </p>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Тарифные планы */}
+      <div className="container mx-auto px-4 pb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {SUBSCRIPTION_PLANS.map((plan) => {
+            const isCurrentPlan = getCurrentPlanId() === plan.id;
+            const price = billingCycle === 'yearly' ? plan.yearlyPrice : plan.monthlyPrice;
+            const monthlyPrice = billingCycle === 'yearly' ? plan.yearlyPrice / 12 : plan.monthlyPrice;
+
+            return (
+              <Card 
+                key={plan.id} 
+                className={`relative transition-all duration-300 hover:scale-105 ${getColorClasses(plan.color, plan.popular)}`}
+              >
+                {/* Популярный план */}
+                {plan.popular && (
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                    <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-1">
+                      <Star className="h-3 w-3 mr-1" />
+                      Популярный
+                    </Badge>
+                  </div>
+                )}
+
+                {/* Текущий план */}
+                {isCurrentPlan && (
+                  <div className="absolute -top-3 right-4">
+                    <Badge variant="outline" className="bg-green-100 text-green-800 border-green-300">
+                      Текущий план
+                    </Badge>
+                  </div>
+                )}
+
+                <CardHeader className="text-center pb-4">
+                  <div className={`w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center ${
+                    plan.color === 'gray' ? 'bg-gray-100 text-gray-600' :
+                    plan.color === 'blue' ? 'bg-blue-100 text-blue-600' :
+                    plan.color === 'purple' ? 'bg-purple-100 text-purple-600' :
+                    'bg-yellow-100 text-yellow-600'
+                  }`}>
+                    {getIconForPlan(plan.id)}
+                  </div>
+                  
+                  <CardTitle className="text-2xl">{plan.displayName}</CardTitle>
+                  <CardDescription className="text-sm">{plan.description}</CardDescription>
+                  
+                  <div className="mt-4">
+                    {price === 0 ? (
+                      <div className="text-3xl font-bold">Бесплатно</div>
+                    ) : (
+                      <div className="space-y-1">
+                        <div className="text-3xl font-bold">
+                          ${Math.round(monthlyPrice)}
+                          <span className="text-base font-normal text-muted-foreground">/мес</span>
+                        </div>
+                        {billingCycle === 'yearly' && (
+                          <div className="text-sm text-muted-foreground">
+                            ${plan.yearlyPrice}/год
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </CardHeader>
+
+                <CardContent className="space-y-4">
+                  {/* Особенности */}
+                  <ul className="space-y-2">
+                    {plan.features.map((feature, index) => (
+                      <li key={index} className="flex items-start gap-2 text-sm">
+                        <Check className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Кнопка подписки */}
+                  <Button
+                    onClick={() => handleSubscribe(plan.id)}
+                    disabled={isLoading || isCurrentPlan}
+                    className={`w-full mt-6 ${
+                      plan.popular 
+                        ? 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700' 
+                        : ''
+                    }`}
+                    variant={plan.popular ? 'default' : isCurrentPlan ? 'outline' : 'outline'}
+                  >
+                    {isCurrentPlan ? 'Текущий план' : 
+                     plan.id === 'free' ? 'Начать бесплатно' : 
+                     'Выбрать план'}
+                  </Button>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+
+        {/* Дополнительная информация */}
+        <div className="mt-16 text-center">
+          <h3 className="text-2xl font-semibold mb-6">Часто задаваемые вопросы</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <Card>
+              <CardContent className="p-6">
+                <h4 className="font-semibold mb-2">Можно ли изменить план?</h4>
+                <p className="text-sm text-muted-foreground">
+                  Да, вы можете повысить или понизить тариф в любое время в личном кабинете.
+                </p>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardContent className="p-6">
+                <h4 className="font-semibold mb-2">Есть ли пробный период?</h4>
+                <p className="text-sm text-muted-foreground">
+                  Для всех платных планов доступен 7-дневный пробный период.
+                </p>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardContent className="p-6">
+                <h4 className="font-semibold mb-2">Возврат средств</h4>
+                <p className="text-sm text-muted-foreground">
+                  Полный возврат в течение 14 дней, если сервис вам не подошел.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* Корпоративные клиенты */}
+        <div className="mt-16 text-center">
+          <Card className="max-w-4xl mx-auto bg-gradient-to-r from-gray-900 to-gray-800 text-white">
+            <CardContent className="p-8">
+              <h3 className="text-2xl font-bold mb-4">Нужно индивидуальное решение?</h3>
+              <p className="text-gray-300 mb-6">
+                Для крупных команд и компаний мы создаем персональные тарифы с особыми условиями.
+              </p>
+              <Button variant="secondary" size="lg">
+                Связаться с отделом продаж
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
     </div>
   );
-};
-
-export default PricingPage;
+}
