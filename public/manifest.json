@@ -1,0 +1,125 @@
+{
+  "name": "CraftRuv Web - AI Дизайн Интерьеров",
+  "short_name": "CraftRuv",
+  "description": "Профессиональный инструмент для дизайна интерьеров с ИИ",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3b82f6",
+  "orientation": "any",
+  "scope": "/",
+  "lang": "ru",
+  "dir": "ltr",
+  "categories": ["design", "lifestyle", "productivity"],
+  "screenshots": [
+    {
+      "src": "/images/screenshots/mobile-dashboard.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Мобильный дашборд"
+    },
+    {
+      "src": "/images/screenshots/desktop-editor.png", 
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Редактор дизайна"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96", 
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png", 
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Новый проект",
+      "short_name": "Создать",
+      "description": "Быстро создать новый дизайн-проект",
+      "url": "/editor?new=true",
+      "icons": [
+        {
+          "src": "/icons/shortcut-new.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "AR Сканер",
+      "short_name": "Сканировать", 
+      "description": "Сканировать комнату с помощью камеры",
+      "url": "/scanner",
+      "icons": [
+        {
+          "src": "/icons/shortcut-scan.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "AI Помощник",
+      "short_name": "AI",
+      "description": "Генерация дизайна с помощью ИИ",
+      "url": "/ai-assistant",
+      "icons": [
+        {
+          "src": "/icons/shortcut-ai.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "display_override": ["window-controls-overlay", "standalone"],
+  "handle_links": "auto",
+  "edge_side_panel": {
+    "preferred_width": 400
+  }
+}

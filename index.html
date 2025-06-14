@@ -1,15 +1,64 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Created by MiniMax Agent</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  
+  <!-- PWA Манифест -->
+  <link rel="manifest" href="/manifest.json" />
+  
+  <!-- Метатеги для PWA -->
+  <meta name="theme-color" content="#3b82f6" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="CraftRuv" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  
+  <!-- Иконки для разных устройств -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+  
+  <!-- SEO и социальные сети -->
+  <meta name="description" content="Профессиональный инструмент для дизайна интерьеров с искусственным интеллектом. Создавайте потрясающие дизайны на мобильном и компьютере." />
+  <meta name="keywords" content="дизайн интерьера, AI, искусственный интеллект, 3D, дизайн, архитектура" />
+  <meta name="author" content="CraftRuv Team" />
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="CraftRuv Web - AI Дизайн Интерьеров" />
+  <meta property="og:description" content="Создавайте профессиональные дизайны интерьеров с помощью ИИ" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://craftruv.com" />
+  <meta property="og:image" content="/images/og-image.png" />
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="CraftRuv Web - AI Дизайн Интерьеров" />
+  <meta name="twitter:description" content="Создавайте профессиональные дизайны интерьеров с помощью ИИ" />
+  <meta name="twitter:image" content="/images/twitter-image.png" />
+  
+  <title>CraftRuv Web - AI Дизайн Интерьеров</title>
 </head>
 
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
+  
+  <!-- PWA Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then((registration) => {
+            console.log('SW registered: ', registration);
+          })
+          .catch((registrationError) => {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
+  </script>
 </body>
 
 </html>
