@@ -1,0 +1,74 @@
+{
+  "brand": "Egger",
+  "name": "Egger",
+  "collections": [
+    {
+      "id": "perfectsense",
+      "name": "PerfectSense",
+      "materials": [
+        {
+          "id": "egger_black_matt",
+          "name": "Чёрный матовый",
+          "texture": "black_matt.jpg",
+          "normal": "black_matt_normal.jpg",
+          "roughness": "black_matt_roughness.jpg",
+          "price": 4500,
+          "unit": "м²"
+        },
+        {
+          "id": "egger_white_gloss",
+          "name": "Белый глянец",
+          "texture": "white_gloss.jpg",
+          "normal": "white_gloss_normal.jpg",
+          "roughness": "white_gloss_roughness.jpg",
+          "price": 4800,
+          "unit": "м²"
+        }
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "id": "h1145",
+      "name": "Дуб Бардолино натуральный",
+      "description": "Древесный декор с натуральной текстурой дуба",
+      "category": "wood",
+      "type": "laminate",
+      "thickness": 18,
+      "pricePerMeter": 1200,
+      "properties": {
+        "waterResistant": true,
+        "scratchResistant": true,
+        "uvResistant": true
+      }
+    },
+    {
+      "id": "u999",
+      "name": "Чёрный",
+      "description": "Глубокий чёрный цвет с матовой поверхностью",
+      "category": "solid",
+      "type": "laminate",
+      "thickness": 18,
+      "pricePerMeter": 950,
+      "properties": {
+        "waterResistant": true,
+        "scratchResistant": true,
+        "uvResistant": true
+      }
+    },
+    {
+      "id": "w1000",
+      "name": "Белый премиум",
+      "description": "Чистый белый цвет с глянцевой поверхностью",
+      "category": "solid",
+      "type": "laminate",
+      "thickness": 18,
+      "pricePerMeter": 1100,
+      "properties": {
+        "waterResistant": true,
+        "scratchResistant": true,
+        "uvResistant": true
+      }
+    }
+  ]
+}

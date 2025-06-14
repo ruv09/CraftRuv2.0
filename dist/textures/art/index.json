@@ -1,0 +1,75 @@
+{
+  "brand": "Art",
+  "name": "Art Collection",
+  "collections": [
+    {
+      "id": "modern",
+      "name": "Современная коллекция",
+      "materials": [
+        {
+          "id": "art_concrete",
+          "name": "Бетон художественный",
+          "texture": "concrete.jpg",
+          "normal": "concrete_normal.jpg",
+          "roughness": "concrete_roughness.jpg",
+          "price": 5500,
+          "unit": "м²"
+        },
+        {
+          "id": "art_metal",
+          "name": "Металл состаренный",
+          "texture": "metal.jpg",
+          "normal": "metal_normal.jpg",
+          "roughness": "metal_roughness.jpg",
+          "metalness": 0.8,
+          "price": 6000,
+          "unit": "м²"
+        }
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "id": "a101",
+      "name": "Зеркало серебро",
+      "description": "Зеркальная поверхность с серебряным напылением",
+      "category": "mirror",
+      "type": "glass",
+      "thickness": 4,
+      "pricePerMeter": 2500,
+      "properties": {
+        "waterResistant": true,
+        "scratchResistant": false,
+        "uvResistant": true
+      }
+    },
+    {
+      "id": "a202",
+      "name": "Стекло сатин",
+      "description": "Матовое стекло с эффектом сатинирования",
+      "category": "glass",
+      "type": "glass",
+      "thickness": 4,
+      "pricePerMeter": 1800,
+      "properties": {
+        "waterResistant": true,
+        "scratchResistant": false,
+        "uvResistant": true
+      }
+    },
+    {
+      "id": "a303",
+      "name": "Стекло прозрачное",
+      "description": "Прозрачное закаленное стекло",
+      "category": "glass",
+      "type": "glass",
+      "thickness": 4,
+      "pricePerMeter": 1500,
+      "properties": {
+        "waterResistant": true,
+        "scratchResistant": false,
+        "uvResistant": true
+      }
+    }
+  ]
+}

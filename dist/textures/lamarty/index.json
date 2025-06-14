@@ -1,0 +1,74 @@
+{
+    "brand": "Lamarty",
+    "name": "Lamarty",
+    "collections": [
+        {
+            "id": "modern",
+            "name": "Современная коллекция",
+            "materials": [
+                {
+                    "id": "lam_white_oak",
+                    "name": "Дуб белый",
+                    "texture": "white_oak.jpg",
+                    "normal": "white_oak_normal.jpg",
+                    "roughness": "white_oak_roughness.jpg",
+                    "price": 1950,
+                    "unit": "м²"
+                },
+                {
+                    "id": "lam_gray_concrete",
+                    "name": "Бетон серый",
+                    "texture": "gray_concrete.jpg",
+                    "normal": "gray_concrete_normal.jpg",
+                    "roughness": "gray_concrete_roughness.jpg",
+                    "price": 2150,
+                    "unit": "м²"
+                }
+            ]
+        }
+    ],
+    "materials": [
+        {
+            "id": "l101",
+            "name": "Ясень Шимо светлый",
+            "description": "Светлый древесный декор с текстурой ясеня",
+            "category": "wood",
+            "type": "laminate",
+            "thickness": 16,
+            "pricePerMeter": 980,
+            "properties": {
+                "waterResistant": true,
+                "scratchResistant": true,
+                "uvResistant": true
+            }
+        },
+        {
+            "id": "l202",
+            "name": "Серый камень",
+            "description": "Имитация натурального камня серого цвета",
+            "category": "stone",
+            "type": "laminate",
+            "thickness": 16,
+            "pricePerMeter": 1150,
+            "properties": {
+                "waterResistant": true,
+                "scratchResistant": true,
+                "uvResistant": true
+            }
+        },
+        {
+            "id": "l303",
+            "name": "Белый базовый",
+            "description": "Классический белый цвет с матовой поверхностью",
+            "category": "solid",
+            "type": "laminate",
+            "thickness": 16,
+            "pricePerMeter": 850,
+            "properties": {
+                "waterResistant": true,
+                "scratchResistant": true,
+                "uvResistant": true
+            }
+        }
+    ]
+} 

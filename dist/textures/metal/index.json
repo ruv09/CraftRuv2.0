@@ -1,0 +1,24 @@
+{
+    "category": "metal",
+    "name": "Металл",
+    "materials": [
+        {
+            "id": "chrome",
+            "name": "Хром",
+            "description": "Хромированное покрытие",
+            "category": "metal",
+            "pricePerMeter": 1800,
+            "thickness": 1,
+            "type": "coating"
+        },
+        {
+            "id": "brushed_steel",
+            "name": "Сталь шлифованная",
+            "description": "Шлифованная нержавеющая сталь",
+            "category": "metal",
+            "pricePerMeter": 2200,
+            "thickness": 1,
+            "type": "coating"
+        }
+    ]
+} 

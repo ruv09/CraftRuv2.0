@@ -1,8 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { MediaPipeCamera } from '@mediapipe/camera_utils';
 import { SelfieSegmentation } from '@mediapipe/selfie_segmentation';
 import * as poseDetection from '@tensorflow-models/pose-detection';
 
@@ -25,34 +22,52 @@ const CameraScanner: React.FC<CameraScannerProps> = ({ onScanComplete }) => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Initialize MediaPipe camera
-    const camera = new MediaPipeCamera(video, {
-      onFrame: async () => {
-        if (ctx && video) {
-          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-          if (isScanning) {
-            // Process frame for 3D scanning
-            processFrame(ctx, canvas);
+    let detector: any;
+    let stream: MediaStream;
+
+    const initializeScanner = async () => {
+      try {
+        // Initialize pose detection
+        detector = await poseDetection.createDetector(
+          poseDetection.SupportedModels.MoveNet,
+          {
+            modelType: 'thunder',
           }
-        }
-      },
-      width: 1280,
-      height: 720,
-    });
+        );
 
-    // Initialize pose detection
-    const detector = await poseDetection.createDetector(
-      poseDetection.SupportedModels.MoveNet,
-      {
-        modelType: 'thunder',
+        // Get user media
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: { width: 1280, height: 720 }
+        });
+        
+        video.srcObject = stream;
+        video.play();
+
+        // Process frames
+        const processFrames = () => {
+          if (ctx && video) {
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            if (isScanning) {
+              processFrame(ctx, canvas);
+            }
+          }
+          requestAnimationFrame(processFrames);
+        };
+        
+        video.onloadeddata = () => {
+          processFrames();
+        };
+      } catch (error) {
+        console.error('Failed to initialize scanner:', error);
       }
-    );
+    };
 
-    // Start camera
-    camera.start();
+    initializeScanner();
 
     return () => {
-      camera.stop();
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+      }
     };
   }, [isScanning]);
 
